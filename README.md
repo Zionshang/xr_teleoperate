@@ -1,294 +1,254 @@
-<div align="center">
-  <h1 align="center">xr_teleoperate</h1>
-  <a href="https://www.unitree.com/" target="_blank">
-    <img src="https://www.unitree.com/images/0079f8938336436e955ea3a98c4e1e59.svg" alt="Unitree LOGO" width="15%">
-  </a>
-  <p align="center">
-    <a> English </a> | <a href="README_zh-CN.md">中文</a> | <a href="README_ja-JP.md">日本語</a>
-  </p>
-  <p align="center">
-    <a href="https://github.com/unitreerobotics/xr_teleoperate/wiki" target="_blank"> <img src="https://img.shields.io/badge/GitHub-Wiki-181717?logo=github" alt="Unitree LOGO"></a> <a href="https://discord.gg/ZwcVwxv5rq" target="_blank"><img src="https://img.shields.io/badge/-Discord-5865F2?style=flat&logo=Discord&logoColor=white" alt="Unitree LOGO"> <a href="https://deepwiki.com/unitreerobotics/xr_teleoperate"><img src="https://deepwiki.com/badge.svg" alt="Ask DeepWiki"></a> </a>
-  </p>
-</div>
+# 0. 📖 介绍
 
+该仓库实现了使用 **XR设备（Extended Reality）**（比如 Apple Vision Pro、PICO 4 Ultra Enterprise 或 Meta Quest 3 等） 对 **宇树（Unitree）人形机器人** 的遥操作控制。
 
-# 📺 Video Demo
+> 如果您之前从没有使用过宇树机器人，那么请您至少先阅读至[官方文档](https://support.unitree.com/main/zh)应用开发章节。
+> 
+> 另外，本仓库的[维基文档](https://github.com/unitreerobotics/xr_teleoperate/wiki)也有很多相关知识可以供您参考。
+
+以下是系统示意图：
 
 <p align="center">
-  <table>
-    <tr>
-      <td align="center" width="50%">
-        <a href="https://www.youtube.com/watch?v=OTWHXTu09wE" target="_blank">
-          <img src="https://img.youtube.com/vi/OTWHXTu09wE/maxresdefault.jpg" alt="Video 1" width="75%">
-        </a>
-        <p><b> G1 (29DoF) + Dex3-1 </b></p>
-      </td>
-      <td align="center" width="50%">
-        <a href="https://www.youtube.com/watch?v=pNjr2f_XHoo" target="_blank">
-          <img src="https://img.youtube.com/vi/pNjr2f_XHoo/maxresdefault.jpg" alt="Video 2" width="75%">
-        </a>
-        <p><b> H1_2 (Arm 7DoF) </b></p>
-      </td>
-    </tr>
-  </table>
-</p>
-
-
-# 🔖[Release Note](CHANGELOG.md)
-
-## 🏷️ v1.5 (2025.12.29)
-
-- support simulation
-- add CycloneDDS interface name parameter
-- [add caching to speed-up urdf loading](https://github.com/unitreerobotics/xr_teleoperate/commit/6cab654620735bfa347c1cd32a0d8c0c1e6ec343)
-- ...
-
-
-
-# 0. 📖 Introduction
-
-This repository implements **teleoperation** control of a **Unitree humanoid robot** using **XR (Extended Reality) devices** (such as Apple Vision Pro, PICO 4 Ultra Enterprise, or Meta Quest 3). 
-
-> If you have never worked with a Unitree robot before, please at least read up to the “Application Development” chapter in the [official documentation](https://support.unitree.com/main/en) first.
-Additionally, the [Wiki of this repo](https://github.com/unitreerobotics/xr_teleoperate/wiki) contains a wealth of background knowledge that you can reference at any time.
-
-Here are the required devices and wiring diagram,
-
-<p align="center">
-  <a href="https://oss-global-cdn.unitree.com/static/55fb9cd245854810889855010da296f7_3415x2465.png">
-    <img src="https://oss-global-cdn.unitree.com/static/55fb9cd245854810889855010da296f7_3415x2465.png" alt="System Diagram" style="width: 100%;">
+  <a href="https://oss-global-cdn.unitree.com/static/1804a35aa09a44a9bf9821fafc4a2348_3415x2465.png">
+    <img src="https://oss-global-cdn.unitree.com/static/1804a35aa09a44a9bf9821fafc4a2348_3415x2465.png" alt="Watch the Document" style="width: 100%;">
   </a>
 </p>
 
 
-The currently supported devices in this repository:
+以下是本仓库目前支持的设备类型：
 
 <table>
   <tr>
-    <th align="center">🤖 Robot</th>
-    <th align="center">⚪ Status</th>
+    <th style="text-align: center;"> &#129302; 机器人 </th>
+    <th style="text-align: center;"> &#9898; 状态 </th>
   </tr>
   <tr>
-    <td align="center"><a href="https://www.unitree.com/cn/g1" target="_blank">G1 (29 DoF)</a></td>
-    <td align="center">✅ Complete</td>
+    <td style="text-align: center;"> <a href="https://www.unitree.com/cn/g1" target="_blank"> G1 (29自由度) </td>
+    <td style="text-align: center;"> &#9989; 完成 </td>
   </tr>
   <tr>
-    <td align="center"><a href="https://www.unitree.com/cn/g1" target="_blank">G1 (23 DoF)</a></td>
-    <td align="center">✅ Complete</td>
+    <td style="text-align: center;"> <a href="https://www.unitree.com/cn/g1" target="_blank"> G1 (23自由度) </td>
+    <td style="text-align: center;"> &#9989; 完成 </td>
   </tr>
   <tr>
-    <td align="center"><a href="https://www.unitree.com/cn/h1" target="_blank">H1 (4‑DoF arm)</a></td>
-    <td align="center">✅ Complete</td>
+    <td style="text-align: center;"> <a href="https://www.unitree.com/cn/h1" target="_blank"> H1 (手臂4自由度) </td>
+    <td style="text-align: center;"> &#9989; 完成 </td>
   </tr>
   <tr>
-    <td align="center"><a href="https://www.unitree.com/cn/h1" target="_blank">H1_2 (7‑DoF arm)</a></td>
-    <td align="center">✅ Complete</td>
+    <td style="text-align: center;"> <a href="https://www.unitree.com/cn/h1" target="_blank"> H1_2 (手臂7自由度) </td>
+    <td style="text-align: center;"> &#9989; 完成 </td>
   </tr>
   <tr>
-    <td align="center"><a href="https://www.unitree.com/cn/Dex1-1" target="_blank">Dex1‑1 gripper</a></td>
-    <td align="center">✅ Complete</td>
+    <td style="text-align: center;"> <a href="https://www.unitree.com/cn/Dex1-1" target="_blank"> Dex1-1 夹爪 </td>
+    <td style="text-align: center;"> &#9989; 完成 </td>
   </tr>
   <tr>
-    <td align="center"><a href="https://www.unitree.com/cn/Dex3-1" target="_blank">Dex3‑1 dexterous hand</a></td>
-    <td align="center">✅ Complete</td>
+    <td style="text-align: center;"> <a href="https://www.unitree.com/cn/Dex3-1" target="_blank"> Dex3-1 灵巧手 </td>
+    <td style="text-align: center;"> &#9989; 完成 </td>
   </tr>
   <tr>
-    <td align="center"><a href="https://support.unitree.com/home/zh/G1_developer/inspire_dfx_dexterous_hand" target="_blank">Inspire dexterous hand</a></td>
-    <td align="center">✅ Complete</td>
+    <td style="text-align: center;"> <a href="https://support.unitree.com/home/zh/G1_developer/inspire_dfx_dexterous_hand" target="_blank"> 因时灵巧手 </td>
+    <td style="text-align: center;"> &#9989; 完成 </td>
   </tr>
   <tr>
-    <td style="text-align: center;"> <a href="https://www.brainco-hz.com/docs/revolimb-hand/" target="_blank"> BrainCo dexterous hand </td>
-    <td style="text-align: center;"> &#9989; Complete </td>
+    <td style="text-align: center;"> <a href="https://www.brainco-hz.com/docs/revolimb-hand/" target="_blank"> 强脑灵巧手 </td>
+    <td style="text-align: center;"> &#9989; 完成 </td>
   </tr>
   <tr>
-    <td align="center"> ··· </td>
-    <td align="center"> ··· </td>
+    <td style="text-align: center;"> ··· </td>
+    <td style="text-align: center;"> ··· </td>
   </tr>
 </table>
 
 
 
-# 1. 📦 Installation
+# 1. 📦 安装
 
-We tested our code on Ubuntu 20.04 and Ubuntu 22.04, other operating systems may be configured differently. This document primarily describes the **default mode**.
+我们在 Ubuntu 20.04 和 Ubuntu 22.04 上测试了我们的代码，其他操作系统可能需要不同的配置。本文档主要介绍常规模式。
 
-For more information, you can refer to [Official Documentation ](https://support.unitree.com/home/zh/Teleoperation) and [OpenTeleVision](https://github.com/OpenTeleVision/TeleVision).
+有关更多信息，您可以参考 [官方文档](https://support.unitree.com/home/zh/Teleoperation) 和 [OpenTeleVision](https://github.com/OpenTeleVision/TeleVision)。
 
-## 1.1 📥 basic
+## 1.1 📥 基础环境
 
-```bash
-# Create a conda environment
-(base) unitree@Host:~$ conda create -n tv python=3.10 pinocchio=3.1.0 numpy=1.26.4 -c conda-forge
-(base) unitree@Host:~$ conda activate tv
-# Clone this repo
-(tv) unitree@Host:~$ git clone https://github.com/unitreerobotics/xr_teleoperate.git
-(tv) unitree@Host:~$ cd xr_teleoperate
-# Shallow clone submodule
-(tv) unitree@Host:~/xr_teleoperate$ git submodule update --init --depth 1
-```
+环境创建
 
 ```bash
-# Install teleimager submodule
-(tv) unitree@Host:~/xr_teleoperate$ cd teleop/teleimager
-(tv) unitree@Host:~/xr_teleoperate/teleop/teleimager$ pip install -e . --no-deps
+# 创建 conda 基础环境
+conda create -n tv python=3.10 pinocchio=3.1.0 numpy=1.26.4 -c conda-forge
+conda activate tv
+# 克隆本仓库
+git clone https://github.com/Zionshang/xr_teleoperate.git
+cd xr_teleoperate
 ```
+
+安装 teleimager 模块
 
 ```bash
-# Install televuer submodule
-(tv) unitree@Host:~/xr_teleoperate$ cd teleop/televuer
-(tv) unitree@Host:~/xr_teleoperate/teleop/televuer$ pip install -e .
-
-# Configure SSL certificates for the televuer module so that XR devices (e.g., Pico / Quest / Apple Vision Pro) can securely connect via HTTPS / WebRTC
-# 1. Generate certificate files
-# 1.1 For Pico / Quest XR devices
-(tv) unitree@Host:~/xr_teleoperate/teleop/televuer$ openssl req -x509 -nodes -days 365 -newkey rsa:2048 -keyout key.pem -out cert.pem
-# 1.2 For Apple Vision Pro
-(tv) unitree@Host:~/xr_teleoperate/teleop/televuer$ openssl genrsa -out rootCA.key 2048
-(tv) unitree@Host:~/xr_teleoperate/teleop/televuer$ openssl req -x509 -new -nodes -key rootCA.key -sha256 -days 365 -out rootCA.pem -subj "/CN=xr-teleoperate"
-(tv) unitree@Host:~/xr_teleoperate/teleop/televuer$ openssl genrsa -out key.pem 2048
-(tv) unitree@Host:~/xr_teleoperate/teleop/televuer$ openssl req -new -key key.pem -out server.csr -subj "/CN=localhost"
-# Create server_ext.cnf file with the following content (IP.2 should match your host IP, e.g., 192.168.123.2. Use ifconfig or similar to check)
-(tv) unitree@Host:~/xr_teleoperate/teleop/televuer$ vim server_ext.cnf
-subjectAltName = @alt_names
-[alt_names]
-DNS.1 = localhost
-IP.1 = 192.168.123.164
-IP.2 = 192.168.123.2
-(tv) unitree@Host:~/xr_teleoperate/teleop/televuer$ openssl x509 -req -in server.csr -CA rootCA.pem -CAkey rootCA.key -CAcreateserial -out cert.pem -days 365 -sha256 -extfile server_ext.cnf
-(tv) unitree@Host:~/xr_teleoperate/teleop/televuer$ ls
-build  cert.pem  key.pem  LICENSE  pyproject.toml  README.md  rootCA.key  rootCA.pem  rootCA.srl  server.csr  server_ext.cnf  src  test
-# Copy rootCA.pem to Apple Vision Pro via AirDrop and install it
-
-# Enable firewall
-(tv) unitree@Host:~/xr_teleoperate/teleop/televuer$ sudo ufw allow 8012
-
-# 2. Configure certificate paths, choose one method
-# 2.1 User config directory (optional)
-(tv) unitree@Host:~/xr_teleoperate/teleop/televuer$ mkdir -p ~/.config/xr_teleoperate/
-(tv) unitree@Host:~/xr_teleoperate/teleop/televuer$ cp cert.pem key.pem ~/.config/xr_teleoperate/
-# 2.2 Environment variables (optional)
-(tv) unitree@Host:~/xr_teleoperate/teleop/televuer$ echo 'export XR_TELEOP_CERT="$HOME/xr_teleoperate/teleop/televuer/cert.pem"' >> ~/.bashrc
-(tv) unitree@Host:~/xr_teleoperate/teleop/televuer$ echo 'export XR_TELEOP_KEY="$HOME/xr_teleoperate/teleop/televuer/key.pem"' >> ~/.bashrc
-(tv) unitree@Host:~/xr_teleoperate/teleop/televuer$ source ~/.bashrc
+cd teleop/teleimager
+pip install -e . --no-deps
 ```
 
+安装 televuer 模块
 
+```bash
+cd teleop/televuer
+pip install -e .
+```
+
+为 televuer 模块配置 SSL 证书，以便 XR 设备（如 Pico / Quest / Apple Vision Pro）通过 HTTPS / WebRTC 安全连接
+
+```bash
+# 1. 生成证书文件
+openssl req -x509 -nodes -days 365 -newkey rsa:2048 -keyout key.pem -out cert.pem
+
+# 2. 配置证书路径，以下方式任选其一
+# 2.1 用户配置目录（可选）
+mkdir -p ~/.config/xr_teleoperate/
+cp cert.pem key.pem ~/.config/xr_teleoperate/
+# 2.2 环境变量配置（可选）
+echo 'export XR_TELEOP_CERT="$HOME/xr_teleoperate/teleop/televuer/cert.pem"' >> ~/.bashrc
+echo 'export XR_TELEOP_KEY="$HOME/xr_teleoperate/teleop/televuer/key.pem"' >> ~/.bashrc
+source ~/.bashrc
+```
+
+安装本仓库所需的其他依赖库
+
+```bash
+pip install -r requirements.txt # 位于 xr_teleoperate 根路径下
+```
 
 ## 1.2 🕹️ unitree_sdk2_python
 
 ```bash
-# Install unitree_sdk2_python library which handles communication with the robot
+# 安装 unitree_sdk2_python 库，该库负责开发设备与机器人之间的通信控制功能
 (tv) unitree@Host:~$ git clone https://github.com/unitreerobotics/unitree_sdk2_python.git
 (tv) unitree@Host:~$ cd unitree_sdk2_python
 (tv) unitree@Host:~/unitree_sdk2_python$ pip install -e .
 ```
 
-> **Note 1:** For `xr_teleoperate` versions **v1.1 and above**, please ensure that the `unitree_sdk2_python` repository is checked out to a commit **equal to or newer than** [404fe44d76f705c002c97e773276f2a8fefb57e4](https://github.com/unitreerobotics/unitree_sdk2_python/commit/404fe44d76f705c002c97e773276f2a8fefb57e4).
+> 注意1：在 `xr_teleoperate >= v1.1` 版本中，`unitree_sdk2_python` 仓库的 commit **必须是等于或高于** [404fe44d76f705c002c97e773276f2a8fefb57e4](https://github.com/unitreerobotics/unitree_sdk2_python/commit/404fe44d76f705c002c97e773276f2a8fefb57e4) 版本
+
+> 注意2：原 h1_2 分支中的 [unitree_dds_wrapper](https://github.com/unitreerobotics/unitree_dds_wrapper) 为临时版本，现已全面转换到上述正式的 Python 版控制通信库：[unitree_sdk2_python](https://github.com/unitreerobotics/unitree_sdk2_python)
+
+> 注意3：命令前面的所有标识符是为了提示：该命令应该在哪个设备和目录下执行。
 >
-> **Note 2**: The [unitree_dds_wrapper](https://github.com/unitreerobotics/unitree_dds_wrapper) in the original h1_2 branch was a temporary version. It has now been fully migrated to the official Python-based control and communication library: [unitree_sdk2_python](https://github.com/unitreerobotics/unitree_sdk2_python).
+> p.s. 在 Ubuntu 系统 `~/.bashrc` 文件中，默认配置: `PS1='${debian_chroot:+($debian_chroot)}\u@\h:\w\$ '`
 >
-> **Note 3**: All identifiers in front of the command are meant for prompting: **Which device and directory the command should be executed on**.
+> - 以`(tv) unitree@Host:~$ pip install meshcat` 命令为例：
 >
-> In the Ubuntu system's `~/.bashrc` file, the default configuration is: `PS1='${debian_chroot:+($debian_chroot)}\u@\h:\w\$ '`
+> - `(tv)` 表示 shell 此时位于 conda 创建的 tv 环境中；
 >
-> Taking the command `(tv) unitree@Host:~$ pip install meshcat` as an example:
+> - `unitree@Host:~` 表示用户标识 unitree 在设备 Host 上登录，当前的工作目录为 `$HOME`；
 >
-> - `(tv)` Indicates the shell is in the conda environment named `tv`.
-> - `unitree@Host:~` Shows the user `\u` `unitree` is logged into the device `\h` `Host`, with the current working directory `\w` as `$HOME`.
-> - `$` shows the current shell is Bash (for non-root users).
-> - `pip install meshcat` is the command `unitree` wants to execute on `Host`.
+> - $ 表示当前 shell 为 Bash；
 >
-> You can refer to [Harley Hahn's Guide to Unix and Linux](https://www.harley.com/unix-book/book/chapters/04.html#H)  and  [Conda User Guide](https://docs.conda.io/projects/conda/en/latest/user-guide/getting-started.html) to learn more.
+> - pip install meshcat 是用户标识 unitree 要在 设备 Host 上执行的命令。
+>
+> 您可以参考 [Harley Hahn's Guide to Unix and Linux](https://www.harley.com/unix-book/book/chapters/04.html#H) 和 [Conda User Guide](https://docs.conda.io/projects/conda/en/latest/user-guide/getting-started.html) 来深入了解这些知识。
+
+## 1.3 🚀 启动参数说明
 
 
+- 基础控制参数
 
-## 1.3 🚀 Launch Parameter Description
-
-- **Basic control parameters**
-
-|      ⚙️ Parameter      |                        📜 Description                         |                     🔘 Available Options                      |     📌 Default     |
+|        ⚙️ 参数         |                            📜 说明                            |                         🔘 目前可选值                         |     📌 默认值      |
 | :-------------------: | :----------------------------------------------------------: | :----------------------------------------------------------: | :---------------: |
-|     `--frequency`     |            Set the FPS for recording and control             |                  Any reasonable float value                  |       30.0        |
-|    `--input-mode`     |       Choose XR input mode (how to control the robot)        |   `hand` (hand tracking)`controller` (controller tracking)   |      `hand`       |
-|   `--display-mode`    |  Choose XR display mode (how to view the robot perspective)  | `immersive` (immersive)`ego` (pass-through + small first-person window)`pass-through` (pass-through only) |    `immersive`    |
-|        `--arm`        |      Select the robot arm type (see 0. 📖 Introduction)       |                 `G1_29` `G1_23` `H1_2` `H1`                  |      `G1_29`      |
-|        `--ee`         | Select the end-effector type of the arm (see 0. 📖 Introduction) |     `dex1` `dex3` `inspire_ftp` `inspire_dfx` `brainco`      |       None        |
-|   `--img-server-ip`   | Set the image server IP address for receiving image streams and configuring WebRTC signaling |                        `IPv4` address                        | `192.168.123.164` |
-| `--network-interface` |    Set the network interface for CycloneDDS communication    |                    Network Interface Name                    |      `None`       |
+|     `--frequency`     |                     设置录制和控制的 FPS                     |                    任意正常范围内的浮点数                    |       30.0        |
+|    `--input-mode`     |          选择 XR 输入模式（通过什么方式控制机器人）          |   `hand`（**手势跟踪**）<br />`controller`（**手柄跟踪**）   |      `hand`       |
+|   `--display-mode`    |        选择 XR 显示模式（通过什么方式查看机器人视角）        | `immersive`（沉浸式）<br />`ego`（通透+第一人称小窗）<br />`pass-through`（通透） |    `immersive`    |
+|        `--arm`        |            选择机器人设备类型（可参考 0. 📖 介绍）            |          `G1_29`<br />`G1_23`<br />`H1_2`<br />`H1`          |      `G1_29`      |
+|        `--ee`         |       选择手臂的末端执行器设备类型（可参考 0. 📖 介绍）       | `dex1`<br />`dex3`<br />`inspire_ftp`<br />`inspire_dfx`<br />`brainco` |     无默认值      |
+|   `--img-server-ip`   | 设置图像服务器的 IP 地址，用于接收图像服务流、配置 WebRTC 信令服务地址 |                         `IPv4` 地址                          | `192.168.123.164` |
+| `--network-interface` |                设置 cyclonedds 通信的网卡接口                |                           网卡名称                           |      `None`       |
 
-- **Mode switch parameters**
+- 模式开关参数
 
-| ⚙️ Parameter  |                        📜 Description                         |
+|    ⚙️ 参数    |                            📜 说明                            |
 | :----------: | :----------------------------------------------------------: |
-|  `--motion`  | **Enable motion control mode** When enabled, the teleoperation program can run alongside the robot’s motion control program.In **hand tracking** mode, the [R3 controller](https://www.unitree.com/cn/R3) can be used to control normal robot walking; in **controller tracking** mode, joysticks can also control the robot’s movement. |
-| `--headless` | **Enable headless mode** For running the program on devices without a display, e.g., the Development Computing Unit (PC2). |
-|   `--sim`    | **Enable [simulation mode](https://github.com/unitreerobotics/unitree_sim_isaaclab)** |
-|   `--ipc`    | **Inter-process communication mode** Allows controlling the xr_teleoperate program’s state via IPC. Suitable for interaction with agent programs. |
-| `--affinity` | **CPU affinity mode** Set CPU core affinity. If you are unsure what this is, do not set it. |
-|  `--record`  | **Enable data recording mode** Press **r** to start teleoperation, then **s** to start recording; press **s** again to stop and save the episode. Press **s** repeatedly to repeat the process. |
-|  `--task-*`  | Configure the save path, target, description, and steps of the recorded task. |
+|  `--motion`  | 【启用**运动控制**模式】<br />开启本模式后，可在机器人运控程序运行下进行遥操作程序。<br />**手势跟踪**模式下，可使用 [R3遥控器](https://www.unitree.com/cn/R3) 控制机器人正常行走；**手柄跟踪**模式下，也可使用[手柄摇杆控制机器人行走](https://github.com/unitreerobotics/xr_teleoperate/blob/375cdc27605de377c698e2b89cad0e5885724ca6/teleop/teleop_hand_and_arm.py#L247-L257)。 |
+| `--headless` | 【启用**无图形界面**模式】<br />适用于本程序部署在开发计算单元（PC2）等无显示器情况 |
+|   `--sim`    | 【启用[**仿真模式**](https://github.com/unitreerobotics/unitree_sim_isaaclab)】 |
+|   `--ipc`    | 【进程间通信模式】<br />可通过进程间通信来控制 xr_teleoperate 程序的状态切换，此模式适合与代理程序进行交互 |
+| `--affinity` | 【CPU亲和模式】<br />设置 CPU 核心亲和性。如果你不知道这是什么，那么请不要设置它。 |
+|  `--record`  | 【启用**数据录制**模式】<br />按 **r** 键进入遥操后，按 **s** 键可开启数据录制，再次按 **s** 键可结束录制并保存本次 episode 数据。<br />继续按下 **s** 键可重复前述过程。 |
+|  `--task-*`  | 此类参数可配置录制的文件保存路径，任务目标、描述、步骤等信息 |
 
-## 1.4 🔄 State Transition Diagram
+
+## 1.4 🔄 状态转移图
 
 <p align="center">
-  <a href="https://oss-global-cdn.unitree.com/static/712c312b0ac3401f8d7d9001b1e14645_11655x4305.jpg">
-    <img src="https://oss-global-cdn.unitree.com/static/712c312b0ac3401f8d7d9001b1e14645_11655x4305.jpg" alt="System Diagram" style="width: 85%;">
+  <a href="https://oss-global-cdn.unitree.com/static/09859bdfb48f4b70b51764710381cb49_10805x4235.jpg">
+    <img src="https://oss-global-cdn.unitree.com/static/09859bdfb48f4b70b51764710381cb49_10805x4235.jpg" alt="System Diagram" style="width: 85%;">
   </a>
 </p>
 
-# 2. 💻 Simulation Deployment
+------
 
-## 2.1 📥 Environment Setup
+# 2. 💻 仿真部署
+
+## 2.1 📥 环境配置
 
 
-First, install [unitree_sim_isaaclab](https://github.com/unitreerobotics/unitree_sim_isaaclab). Follow that repo’s README.
+首先，请安装 [unitree_sim_isaaclab](https://github.com/unitreerobotics/unitree_sim_isaaclab)。具体安装步骤，可参考该仓库 README 文档。
 
-Then launch the simulation with a G1(29 DoF) and Dex3 hand configuration:
+其次，启动 unitree_sim_isaaclab 仿真环境。假设使用 G1(29 DoF) 和 Dex3 灵巧手配置进行仿真，则启动命令示例如下：
 
 ```bash
 (base) unitree@Host:~$ conda activate unitree_sim_env
 (unitree_sim_env) unitree@Host:~$ cd ~/unitree_sim_isaaclab
-(unitree_sim_env) unitree@Host:~/unitree_sim_isaaclab$ python sim_main.py --device cpu --enable_cameras --task Isaac-PickPlace-Cylinder-G129-Dex3-Joint --enable_dex3_dds --robot_type g129
+(unitree_sim_env) unitree@Host:~/unitree_sim_isaaclab$ python sim_main.py --device cpu  --enable_cameras  --task  Isaac-PickPlace-Cylinder-G129-Dex3-Joint --enable_dex3_dds --robot_type g129
 ```
 
-💥💥💥 NOTICE❗
+💥💥💥 请注意❗
 
-> **After simulation starts, click once in the window to activate it.**
+> **仿真环境启动后，使用鼠标左键在窗口内点击一次以激活仿真运行状态。**
 >
-> The terminal will show:  `controller started, start main loop...`
+> 此时，终端内输出 `controller started, start main loop...`。
 
-Here is the simulation GUI:
+仿真界面如下图所示：
 
-<p align="center">   <a href="https://oss-global-cdn.unitree.com/static/bea51ef618d748368bf59c60f4969a65_1749x1090.png">     <img src="https://oss-global-cdn.unitree.com/static/bea51ef618d748368bf59c60f4969a65_1749x1090.png" alt="Simulation UI" style="width: 75%;">   </a> </p>
+<p align="center">
+  <a href="https://oss-global-cdn.unitree.com/static/bea51ef618d748368bf59c60f4969a65_1749x1090.png">
+    <img src="https://oss-global-cdn.unitree.com/static/bea51ef618d748368bf59c60f4969a65_1749x1090.png" alt="Unitree sim isaaclab" style="width: 75%;">
+  </a>
+</p>
 
-## 2.2 🚀 Launch
 
-This program supports XR control of a physical robot or in simulation. Choose modes with command-line arguments:
 
-Assuming hand tracking with G1(29 DoF) + Dex3 in simulation with recording:
+## 2.2 🚀 启动遥操
+
+本程序支持通过 XR 设备（比如手势或手柄）来控制实际机器人动作，也支持在虚拟仿真中运行。你可以根据需要，通过命令行参数来配置运行方式。
+
+根据 1.3 节参数说明以及仿真环境配置，我们假设选择**手势跟踪**来控制 G1(29 DoF) + Dex3 灵巧手设备，同时开启仿真模式和数据录制模式。
+
+则启动命令如下所示：
 
 ```bash
 (tv) unitree@Host:~$ cd ~/xr_teleoperate/teleop/
 (tv) unitree@Host:~/xr_teleoperate/teleop/$ python teleop_hand_and_arm.py --xr-mode=hand --arm=G1_29 --ee=dex3 --sim --record
-# Simplified (defaults apply):
+# 实际上，由于一些参数存在默认值，该命令也可简化为：
 (tv) unitree@Host:~/xr_teleoperate/teleop/$ python teleop_hand_and_arm.py --ee=dex3 --sim --record
 ```
 
-After the program starts, the terminal shows:
+程序正常启动后，终端输出信息如下图所示：
 
-<p align="center">   <a href="https://oss-global-cdn.unitree.com/static/735464d237214f6c9edf8c7db9847a0a_1874x1275.png">     <img src="https://oss-global-cdn.unitree.com/static/735464d237214f6c9edf8c7db9847a0a_1874x1275.png" alt="Terminal Start Log" style="width: 75%;">   </a> </p>
+<p align="center">
+  <a href="https://oss-global-cdn.unitree.com/static/735464d237214f6c9edf8c7db9847a0a_1874x1275.png">
+    <img src="https://oss-global-cdn.unitree.com/static/735464d237214f6c9edf8c7db9847a0a_1874x1275.png" alt="start_terminal_log" style="width: 75%;">
+  </a>
+</p>
 
-Next steps:
+接下来，执行以下步骤：
 
-1. Wear your XR headset (e.g. Apple Vision Pro, PICO4, etc.)
+1. 戴上您的 XR 头显设备（比如 apple vision pro 或 pico4 ultra enterprise等）
 
-2. Connect to the corresponding Wi‑Fi
+2. 连接对应的 WiFi 热点
 
-3. Only proceed if your head camera has WebRTC enabled (`cam_config_server.yaml → head_camera → enable_webrtc: true`); otherwise jump to Step 4. Open a browser (e.g. Safari or PICO Browser) and go to:  
-   **https://192.168.123.164:60001**
+3. 如果您头部相机开启了WebRTC功能（`cam_config_server.yaml => head_camera => enable_webrtc: true`），那么执行此步骤，否则直接跳到第 4 步。打开浏览器应用（比如 Safari 或 PICO Browser），输入并访问网址：https://192.168.123.164:60001
 
-   > **Note 1:** This IP is the address of **PC2**—the machine running teleimager service.  
-   > **Note 2:** You may see a warning page like step 4. Click **Advanced**, then **Proceed to IP (unsafe)**. Once the page loads, press the **start** button in the top-left corner; if you see the head-camera preview, the check is successful.
+   > 注意1：此 IP 地址为开启teleimager图像服务的 PC2 设备 IP
+
+   > 注意2：此时可能弹出类似第4步相同的警告提示。请点击`Advanced`按钮后，继续点击 `Proceed to ip (unsafe)` 按钮，使用非安全方式继续登录WebRTC图像服务器。进入后，点击左上角`start`按钮，如果预览到头部相机图像，那么操作成功。
    >
    > <p align="center">
    >   <a href="https://oss-global-cdn.unitree.com/static/777f9c6f42d74eb2a6438d1509a73025_2475x1574.jpg">
@@ -296,18 +256,13 @@ Next steps:
    >   </a>
    > </p>
    >
-   > **Note 3:** This step serves two purposes:  
-   >
-   > 1. Verify that the teleimager service is running correctly.  
-   > 2. Manually trust the WebRTC self-signed certificate.  
-   >
-   > Once this has been done on the same device with the same certificate, you can skip it on subsequent launches.
+   > 注意3：此步骤目的有两个：一是检测头部相机服务是否正常；二是手动信任 `webrtc` 自签名证书。相同设备与自签名证书条件下执行一次本步骤后，再次启动时可跳过该步。
 
-4. Open a browser (e.g. Safari or PICO Browser) and go to:  `https://192.168.123.2:8012/?ws=wss://192.168.123.2:8012`
+4. 打开浏览器应用（比如 Safari 或 PICO Browser），输入并访问网址：https://192.168.123.2:8012/?ws=wss://192.168.123.2:8012
 
-   > **Note 1**: This IP must match your **Host** IP (check with `ifconfig`).
-   >
-   > **Note 2**: You may see a warning page. Click **Advanced**, then **Proceed to IP (unsafe)**.
+   > 注意1：此 IP 地址应与您的 **主机** IP 地址匹配。该地址可以使用 `ifconfig` 等类似命令查询。
+
+   > 注意2：此时可能弹出下图所示的警告信息。请点击`Advanced`按钮后，继续点击 `Proceed to ip (unsafe)` 按钮，使用非安全方式继续登录服务器。
 
    <p align="center">
      <a href="https://oss-global-cdn.unitree.com/static/cef18751ca6643b683bfbea35fed8e7c_1279x1002.png">
@@ -315,210 +270,217 @@ Next steps:
      </a>
    </p>
 
-5. In the Vuer web, click **Virtual Reality**. Allow all prompts to start the VR session.
+5. 进入`Vuer`网页界面后，点击 **`Virtual Reality`** 按钮。在允许后续的所有对话框后，启动 VR 会话。界面如下图所示：
 
-   <p align="center">  <a href="https://oss-global-cdn.unitree.com/static/fdeee4e5197f416290d8fa9ecc0b28e6_2480x1286.png">    <img src="https://oss-global-cdn.unitree.com/static/fdeee4e5197f416290d8fa9ecc0b28e6_2480x1286.png" alt="Vuer UI" style="width: 75%;">  </a> </p>
+   <p align="center">
+     <a href="https://oss-global-cdn.unitree.com/static/fdeee4e5197f416290d8fa9ecc0b28e6_2480x1286.png">
+       <img src="https://oss-global-cdn.unitree.com/static/fdeee4e5197f416290d8fa9ecc0b28e6_2480x1286.png" alt="vuer" style="width: 75%;">
+     </a>
+   </p>
 
-6. You’ll see the robot’s first-person view in the headset. The terminal prints connection info:
+6. 此时，您将会在 XR 头显设备中看到机器人的第一人称视野。同时，终端打印出链接建立的信息：
 
    ```bash
    websocket is connected. id:dbb8537d-a58c-4c57-b49d-cbb91bd25b90
-   default socket worker is up, adding clientEvents
+   default socket worker is up, adding clientEvents 
    Uplink task running. id:dbb8537d-a58c-4c57-b49d-cbb91bd25b90
    ```
 
-7. Align your arm to the **robot’s initial pose** to avoid sudden movements at start:
+7. 然后，将手臂形状摆放到与**机器人初始姿态**相接近的姿势。这一步是为了避免在实物部署时，初始位姿差距过大导致机器人产生过大的摆动。
 
-   <p align="center">  <a href="https://oss-global-cdn.unitree.com/static/2522a83214744e7c8c425cc2679a84ec_670x867.png">    <img src="https://oss-global-cdn.unitree.com/static/2522a83214744e7c8c425cc2679a84ec_670x867.png" alt="Initial Pose" style="width: 25%;">  </a> </p>
+   机器人初始姿态示意图如下：
 
-8. Press **r** in the terminal to begin teleoperation. You can now control the robot arm and dexterous hand.
+   <p align="center">
+     <a href="https://oss-global-cdn.unitree.com/static/2522a83214744e7c8c425cc2679a84ec_670x867.png">
+       <img src="https://oss-global-cdn.unitree.com/static/2522a83214744e7c8c425cc2679a84ec_670x867.png" alt="robot_init_pose" style="width: 25%;">
+     </a>
+   </p>
 
-9. During teleoperation, press **s** to start recording; press **s** again to stop and save. Repeatable process.
+8. 最后，在终端中按下 **r** 键后，正式开启遥操作程序。此时，您可以远程控制机器人的手臂（和灵巧手）
 
-<p align="center">  <a href="https://oss-global-cdn.unitree.com/static/f5b9b03df89e45ed8601b9a91adab37a_2397x1107.png">    <img src="https://oss-global-cdn.unitree.com/static/f5b9b03df89e45ed8601b9a91adab37a_2397x1107.png" alt="Recording Process" style="width: 75%;">  </a> </p>
+9. 在遥操过程中，按 **s** 键可开启数据录制，再次按 **s** 键可结束录制并保存数据（该过程可重复）
 
-> **Note 1**: Recorded data is stored in `xr_teleoperate/teleop/utils/data` by default, with usage instructions at this repo:  [unitree_IL_lerobot](https://github.com/unitreerobotics/unitree_IL_lerobot/tree/main?tab=readme-ov-file#data-collection-and-conversion).
+   数据录制过程示意图如下：
+
+   <p align="center">
+     <a href="https://oss-global-cdn.unitree.com/static/f5b9b03df89e45ed8601b9a91adab37a_2397x1107.png">
+       <img src="https://oss-global-cdn.unitree.com/static/f5b9b03df89e45ed8601b9a91adab37a_2397x1107.png" alt="record" style="width: 75%;">
+     </a>
+   </p>
+
+> 注意1：录制的数据默认存储在 `xr_teleoperate/teleop/utils/data` 中。数据使用说明见此仓库： [unitree_IL_lerobot](https://github.com/unitreerobotics/unitree_IL_lerobot/blob/main/README_zh.md#%E6%95%B0%E6%8D%AE%E9%87%87%E9%9B%86%E4%B8%8E%E8%BD%AC%E6%8D%A2)。
 >
-> **Note 2**: Please pay attention to your disk space size during data recording.
+> 注意2：请在录制数据时注意您的硬盘空间大小。
 >
-> **Note 3**: In v1.4 and above, the “record image” window has been removed.
+> 注意3:   v1.4 及以上版本，record image窗口取消。
 
-## 2.3 🔚 Exit
+## 2.3 🔚 退出
 
-Press **q** in the terminal (or “record image” window) to quit.
+要退出程序，可以在终端窗口中按下 **q** 键。
 
 
 
-# 3. 🤖 Physical Deployment
+# 3. 🤖 实物部署
 
-Physical deployment steps are similar to simulation, with these key differences:
+实物部署与仿真部署步骤基本相似，下面将重点指出不同之处。
 
-## 3.1 🖼️ Image Service
+## 3.1 🖼️ 图像服务
 
-In the simulation environment, the image service is automatically enabled. For physical deployment, you need to manually start the image service based on your specific camera hardware. The steps are as follows:
+仿真环境中已经自动开启了图像服务。实物部署时，需要针对自身相机硬件类型，手动开启图像服务。步骤如下：
 
-1. Install the image service program on the **Development Computing Unit PC2** of the Unitree robot (G1/H1/H1_2, etc.)
+1. 在宇树机器人（G1/H1/H1_2 等）的 **开发计算单元 PC2** 中安装图像服务程序
 
-   ```bash
-   # SSH into PC2 and download the image service repository
-   
-   (base) unitree@PC2:~$ cd ~
-   (base) unitree@PC2:~$ git clone https://github.com/silencht/teleimager
-   
-   # Configure the environment according to the instructions in the teleimager repository README: https://github.com/silencht/teleimager/blob/main/README.md
-   ```
+```bash
+# ssh登录PC2，下载图像服务程序仓库
+(base) unitree@PC2:~$ cd ~
+(base) unitree@PC2:~$ git clone https://github.com/silencht/teleimager
+# 根据 teleimager 仓库的 https://github.com/silencht/teleimager/blob/main/README.md 文档说明来配置环境
+```
 
-2. On the **local host**, execute the following commands:
+2. 在**本地主机**上执行以下命令：
 
-   ```bash
-   # Copy the `key.pem` and `cert.pem` files configured in Section 1.1 from the **local host** `xr_teleoperate/teleop/televuer` directory to the corresponding path on PC2
-   
-   # These two files are required by teleimager to start the WebRTC service
-   (tv) unitree@Host:~$ scp ~/xr_teleoperate/teleop/televuer/key.pem ~/xr_teleoperate/teleop/televuer/cert.pem unitree@192.168.123.164:~/teleimager
-   
-   # On PC2, configure the certificate path according to the teleimager repository README, for example:
-   (teleimager) unitree@PC2:~$ cd teleimager
-   (teleimager) unitree@PC2:~$ mkdir -p ~/.config/xr_teleoperate/
-   (teleimager) unitree@PC2:~/teleimager$ cp cert.pem key.pem ~/.config/xr_teleoperate/
-   ```
+```bash
+# 将本地主机 xr_teleoperate/teleop/televuer 路径下在 1.1 节配置的 key.pem 和 cert.pem 文件拷贝到 PC2 对应路径
+# 这两个文件是 teleimager 启动 WebRTC 服务时所必须的
+(tv) unitree@Host:~$ scp ~/xr_teleoperate/teleop/televuer/key.pem ~/xr_teleoperate/teleop/televuer/cert.pem unitree@192.168.123.164:~/teleimager
+# 根据 teleimager 仓库的 https://github.com/silencht/teleimager/blob/main/README.md 文档说明，在PC2配置证书路径，例如
+(teleimager) unitree@PC2:~$ cd teleimager
+(teleimager) unitree@PC2:~$ mkdir -p ~/.config/xr_teleoperate/
+(teleimager) unitree@PC2:~/teleimager$ cp cert.pem key.pem ~/.config/xr_teleoperate/
+```
 
-3. On the **development computing unit PC2**, configure `cam_config_server.yaml` according to the teleimager documentation and start the image service.
+3. 在**开发计算单元 PC2** 中按照 teleimager 文档配置 cam_config_server.yaml 并启动图像服务程序
 
-   ```bash
-   (teleimager) unitree@PC2:~/image_server$ python -m teleimager.image_server
-   
-   # The following command works the same way
-   (teleimager) unitree@PC2:~/image_server$ teleimager-server
-   ```
+```bash
+(teleimager) unitree@PC2:~/image_server$ python -m teleimager.image_server
+# 下面命令作用相同
+(teleimager) unitree@PC2:~/image_server$ teleimager-server
+```
 
-4. On the **local host**, execute the following command to subscribe to the images
+4. 在**本地主机**上执行以下命令订阅图像：
 
-   ```bash
-   (tv) unitree@Host:~$ cd ~/xr_teleoperate/teleop/teleimager/src
-   (tv) unitree@Host:~/xr_teleoperate/teleop/teleimager/src$ python -m teleimager.image_client --host 192.168.123.164
-   
-   # If the WebRTC image stream is set up, you can also open the URL [https://192.168.123.164:60001](https://192.168.123.164:60001) in a browser and click the Start button to test.
-   ```
+```bash
+(tv) unitree@Host:~$ cd ~/xr_teleoperate/teleop/teleimager/src
+(tv) unitree@Host:~/xr_teleoperate/teleop/teleimager/src$ python -m teleimager.image_client --host 192.168.123.164
+# 如果设置了 WebRTC 图像流，那么可以在浏览器中通过 https://192.168.123.164:60001 打开网址，随后点击 Start 按钮进行测试 
+```
 
-   
 
-## 3.2 ✋ Inspire Hand Service (optional)
 
-> **Note 1**: Skip this if your config does not use the Inspire hand.
+## 3.2 ✋ Inspire 手部服务（可选）
+
+> 注意1：如果选择的机器人配置中没有使用 Inspire 系列灵巧手，那么请忽略本节内容。
 >
-> **Note 2**: For G1 robot with [Inspire DFX hand](https://support.unitree.com/home/zh/G1_developer/inspire_dfx_dexterous_hand), related issue [#46](https://github.com/unitreerobotics/xr_teleoperate/issues/46).
+> 注意2：如果选择的G1机器人配置，且使用 [Inspire DFX 灵巧手](https://support.unitree.com/home/zh/G1_developer/inspire_dfx_dexterous_hand)，相关issue [#46](https://github.com/unitreerobotics/xr_teleoperate/issues/46)。
 >
-> **Note 3**: For [Inspire FTP hand]((https://support.unitree.com/home/zh/G1_developer/inspire_ftp_dexterity_hand)), related issue [#48](https://github.com/unitreerobotics/xr_teleoperate/issues/48). FTP dexterous hand is now supported. Please refer to the `--ee` parameter for configuration.
+> 注意3：如果选择的机器人配置中使用了 [Inspire FTP 灵巧手](https://support.unitree.com/home/zh/G1_developer/inspire_ftp_dexterity_hand)，相关issue [ #48](https://github.com/unitreerobotics/xr_teleoperate/issues/48)。目前已经支持 FTP 灵巧手，请您查阅 `--ee` 参数。 
 
-First, use [this URL: DFX_inspire_service](https://github.com/unitreerobotics/DFX_inspire_service) to clone the dexterous hand control interface program. And Copy it to **PC2** of  Unitree robots. 
+首先，使用 [此链接: DFX_inspire_service](https://github.com/unitreerobotics/DFX_inspire_service) 克隆灵巧手控制接口程序，然后将其复制到宇树机器人的**PC2**。
 
-On Unitree robot's **PC2**, execute command:
+在宇树机器人的 **PC2** 上，执行命令：
 
 ```bash
 unitree@PC2:~$ sudo apt install libboost-all-dev libspdlog-dev
-# Build project
+# 构建项目
 unitree@PC2:~$ cd DFX_inspire_service && mkdir build && cd build
 unitree@PC2:~/DFX_inspire_service/build$ cmake ..
 unitree@PC2:~/DFX_inspire_service/build$ make -j6
 
-# (For unitree g1) Terminal 1.
+# （For unitree g1）终端 1. 
 unitree@PC2:~/DFX_inspire_service/build$ sudo ./inspire_g1
-# or (For unitree h1) Terminal 1.
+# 或（For unitree h1）终端 1. 
 unitree@PC2:~/DFX_inspire_service/build$ sudo ./inspire_h1 -s /dev/ttyUSB0
 
-# Terminal 2. Run example
+# 终端 2. 运行示例
 unitree@PC2:~/DFX_inspire_service/build$ ./hand_example
 ```
 
-If two hands open and close continuously, it indicates success. Once successful, close the `./hand_example` program in Terminal 2.
+如果两只手连续打开和关闭，则表示成功。一旦成功，即可关闭终端 2 中的 `./hand_example` 程序。
+
+## 3.3 ✋ BrainCo 手部服务（可选）
+
+请参考[仓库文档](https://github.com/unitreerobotics/brainco_hand_service)。
+
+## 3.4 ✋ Unitree Dex1_1 服务（可选）
+
+请参考[仓库文档](https://github.com/unitreerobotics/dex1_1_service)。
 
 
-
-## 3.3 ✋ BrainCo Hand Service (Optional)
-
-Please refer to the [Repo README](https://github.com/unitreerobotics/brainco_hand_service) for setup instructions.
-
-## 3.4 ✋ Unitree Dex1_1 Service (Optional)
-
-Please refer to the [Repo README](https://github.com/unitreerobotics/dex1_1_service) for setup instructions.
-
-## 3.5 🚀 Launch
+## 3.5 🚀 启动遥操
 
 >  ![Warning](https://img.shields.io/badge/Warning-Important-red)
 >
->  1. Everyone must keep a safe distance from the robot to prevent any potential danger!
->  2. Please make sure to read the [Official Documentation](https://support.unitree.com/home/zh/Teleoperation) at least once before running this program.
->  3. To use motion mode (with `--motion`), ensure the robot is in control mode (via [R3 remote](https://www.unitree.com/R3)).
->  5. In motion mode:
->    - Right controller **A** = Exit teleop
->    - Both joysticks pressed = soft emergency stop (switch to damping mode)
->    - Left joystick = drive directions; 
->    - right joystick = turning; 
->    - max speed is limited in the code.
+>  1. 所有人员必须与机器人保持安全距离，以防止任何潜在的危险！
+>  2. 在运行此程序之前，请确保至少阅读一次 [官方文档](https://support.unitree.com/home/zh/Teleoperation)。
+>  3. 如果要开启**运动控制**模式遥操作，请提前使用 [R3遥控器](https://www.unitree.com/cn/R3) 确保机器人进入主运控模式。
+>  5. 开启**运动控制**模式（`--motion`）时：
+>     - 右手柄按键 `A` 为遥操作**退出**功能按键；
+>     - 左手柄和右手柄的两个摇杆按键同时按下为软急停按键，机器人会退出运控程序并进入阻尼模式，该功能只在必要情况下使用
+>     - 左手柄摇杆控制机器人前后左右（最大控制速度已经在程序中进行了限制）
+>     - 右手柄摇杆控制机器人转向（最大控制速度已经在程序中进行了限制）
 
-Same as simulation but follow the safety warnings above.
+与仿真部署基本一致，但要注意上述警告事项。
 
-## 3.6 🔚 Exit
+## 3.6 🔚 退出
 
-> ![Warning](https://img.shields.io/badge/Warning-Important-red)
+>  ![Warning](https://img.shields.io/badge/Warning-Important-red)
 >
-> To avoid damaging the robot, it is recommended to position the robot's arms close to the initial pose before pressing **q** to exit.
+>  为了避免损坏机器人，最好确保将机器人手臂摆放为与机器人初始姿态附近的恰当位置后，再按 **q** 退出。
 >
-> - In **Debug Mode**: After pressing the exit key, both arms will return to the robot's **initial pose** within 5 seconds, and then the control will end.
+>  调试模式下：按下退出键后，机器人双臂将在5秒内返回机器人初始姿态，然后结束控制。
 >
-> - In **Motion Mode**: After pressing the exit key, both arms will return to the robot's **motion control pose** within 5 seconds, and then the control will end.
+>  运控模式下：按下退出键后，机器人双臂将在5秒内返回机器人运控姿态，然后结束控制。
 
-Same as simulation but follow the safety warnings above.
+与仿真部署基本一致，但要注意上述警告事项。
 
 
 
-# 4. 🗺️ Codebase Overview
+# 4. 🗺️ 代码库教程
 
 ```
 xr_teleoperate/
 │
-├── assets                    [Stores robot URDF-related files]
+├── assets                    [存储机器人 URDF 相关文件]
 │
 ├── teleop
-│   ├── teleimager            [New image service library, supporting multiple features]
+│   ├── teleimager            [全新的图像服务库，支持多种特性]
 │   │
 │   ├── televuer
 │   │      ├── src/televuer
-│   │         ├── television.py       [Captures head, wrist, and hand/controller data from XR devices using Vuer]
-│   │         ├── tv_wrapper.py       [Post-processing of captured data]
+│   │         ├── television.py       [使用 Vuer 从 XR 设备捕获头部、腕部和手部/手柄等数据]  
+│   │         ├── tv_wrapper.py       [对捕获的数据进行后处理]
 │   │      ├── test
-│   │         ├── _test_television.py [Test program for television.py]
-│   │         ├── _test_tv_wrapper.py [Test program for tv_wrapper.py]
+│   │         ├── _test_television.py [television.py 的测试程序]  
+│   │         ├── _test_tv_wrapper.py [tv_wrapper.py 的测试程序]  
 │   │
 │   ├── robot_control
-│   │      ├── src/dex-retargeting [Dexterous hand retargeting algorithm library]
-│   │      ├── robot_arm_ik.py     [Inverse kinematics for the arm]
-│   │      ├── robot_arm.py        [Controls dual-arm joints and locks other parts]
-│   │      ├── hand_retargeting.py [Wrapper for the dexterous hand retargeting library]
-│   │      ├── robot_hand_inspire.py  [Controls Inspire dexterous hand]
-│   │      ├── robot_hand_unitree.py  [Controls Unitree dexterous hand]
+│   │      ├── src/dex-retargeting [灵巧手映射算法库]
+│   │      ├── robot_arm_ik.py     [手臂的逆运动学]  
+│   │      ├── robot_arm.py        [控制双臂关节并锁定其他部分]
+│   │      ├── hand_retargeting.py [灵巧手映射算法库 Wrapper]
+│   │      ├── robot_hand_inspire.py  [控制因时灵巧手]
+│   │      ├── robot_hand_unitree.py  [控制宇树灵巧手]
 │   │
 │   ├── utils
-│   │      ├── episode_writer.py          [Used to record data for imitation learning]
-│   │      ├── weighted_moving_filter.py  [Filter for joint data]
-│   │      ├── rerun_visualizer.py        [Visualizes recorded data]
-│   │      ├── ipc.py                     [Handles inter-process communication with proxy programs]
-│   │      ├── motion_switcher.py         [Switches motion control states]
-│   │      ├── sim_state_topic.py         [For simulation deployment]
+│   │      ├── episode_writer.py          [用于记录模仿学习的数据]  
+│   │      ├── weighted_moving_filter.py  [用于过滤关节数据的滤波器]
+│   │      ├── rerun_visualizer.py        [用于可视化录制数据]
+│   │      ├── ipc.py                     [用于和代理程序进行进程间通信]
+│   │      ├── motion_switcher.py         [用于切换运控状态]
+│   │      ├── sim_state_topic.py         [用于仿真部署]
 │   │
-│   └── teleop_hand_and_arm.py    [Startup script for teleoperation]
-
+│   │──teleop_hand_and_arm.py    [遥操作的启动执行代码]
 ```
 
-# 5. 🛠️ Hardware
-
-please see [Device document](Device.md).
 
 
+# 5. 🛠️ 硬件
 
-# 6. 🙏 Acknowledgement
+请查看 [硬件文档](Device_zh-CN.md).
 
-This code builds upon following open-source code-bases. Please visit the URLs to see the respective LICENSES:
+# 6. 🙏 鸣谢
+
+该代码基于以下开源代码库构建。请访问以下链接查看各自的许可证：
 
 1. https://github.com/OpenTeleVision/TeleVision
 2. https://github.com/dexsuite/dex-retargeting
