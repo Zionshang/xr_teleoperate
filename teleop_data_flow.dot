@@ -1,0 +1,39 @@
+digraph TeleopDataFlow {
+    rankdir=LR;
+    node [shape=box, style=rounded, fontsize=10, fontname="Helvetica"];
+
+    MainThread [label="Main Thread\n(teleop/teleop_hand_and_arm.py)"];
+    KeyboardThread [label="Keyboard / IPC Thread"];
+
+        ZMQSubs [label="ZMQ Subscriber Threads\n(head/left/right)\n(threads)"];
+        ImageClient [label="ImageClient\n(latest frame API)\n(runs in main thread)"];
+
+    TeleVuerProc [shape=ellipse, label="TeleVuer Process\n(XR source)"];
+    SharedArrays [label="Shared Memory\n(multiprocessing.Array / Value)\n- pose, hand data, controller I/O"];
+
+        ControllerProc [label="Controller (control loop)\n(process or thread)\n(通常为子进程control_process 或线程control_thread)"];
+
+    RecorderThread [label="EpisodeWriter Worker Thread\n(保存磁盘 I/O)"];
+    RecorderQueue [label="Recorder Queue\n(recorder.add_item())"];
+    FS [shape=folder, label="Filesystem"];
+
+    ZMQSubs -> ImageClient [label="frames"];
+    ImageClient -> MainThread [label="latest frame"];
+
+    TeleVuerProc -> SharedArrays [label="telemetry / pose"];
+    SharedArrays -> MainThread [label="telemetry / pose (read)"];
+
+    MainThread -> SharedArrays [label="XR input (write)\n(left_hand_pos_array, etc.)"];
+    SharedArrays -> ControllerProc [label="XR input (read)"];
+    ControllerProc -> SharedArrays [label="state / action (write)"];
+    SharedArrays -> MainThread [label="state / action (read)"];
+
+    MainThread -> RecorderQueue [label="recorder.add_item() (enqueue)"];
+    RecorderQueue -> RecorderThread [label="worker: dequeue & write"];
+    RecorderThread -> FS [label="save images / data.json"];
+
+    KeyboardThread -> MainThread [style=dashed, label="control signals (r/s/q)"];
+
+    // 备注
+    Legend [shape=plaintext, label="NOTE:\n- 共享内存用于低延迟数据交换（需锁保护）。\n- ZMQ 订阅线程供 ImageClient 返回最新帧。\n- Recorder 使用 Queue 与后台线程解耦 I/O。"];
+}
