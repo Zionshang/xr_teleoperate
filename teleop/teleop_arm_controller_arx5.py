@@ -8,12 +8,17 @@
 
 import argparse
 import time
+import os 
+import sys
+current_dir = os.path.dirname(os.path.abspath(__file__))
+parent_dir = os.path.dirname(current_dir)
+sys.path.append(parent_dir)
+
 from typing import Tuple
 import numpy as np
 
 from televuer import TeleVuerWrapper
 from televuer.tv_wrapper import fast_mat_inv
-from teleop.utils.pose_plotter import PosePlotter
 
 from communication.lcm.lcm_client import Arx5LcmClient
 
